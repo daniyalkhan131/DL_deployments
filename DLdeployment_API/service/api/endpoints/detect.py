@@ -3,11 +3,12 @@ from PIL import Image
 from io import BytesIO
 import numpy as np
 from service.core.logic.onnx_inference import emotions_detector
+from service.core.schemas.output import APIOutput
 
 emo_router = APIRouter() #for routing info. from here to main.py
 
-@emo_router.post("/detect")
-def detect (im: UploadFile): #it is for uploading file
+@emo_router.post("/detect", response_model=APIOutput)
+async def detect (im: UploadFile): #it is for uploading file
 
     if im.filename.split(".")[-1] in ("jpg", "jpeg", "png"):
         pass 
